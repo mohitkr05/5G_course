@@ -15,11 +15,37 @@
 
 `sudo apt update`
 
+
+> Failing installation of Mongodb?  Follow this
+https://askubuntu.com/questions/1403619/mongodb-install-fails-on-ubuntu-22-04-depends-on-libssl1-1-but-it-is-not-insta
+
+
+MongoDB 6.0 is now installable from mongodb repositories on Jammy, without requiring libssl1.1
+Original answer
+
+MongoDb has no official build for ubuntu 22.04 at the moment.
+
+Ubuntu 22.04 has upgraded libssl to 3 and does not propose libssl1.1
+
+You can force the installation of libssl1.1 by adding the ubuntu 20.04 source:
+
+`echo "deb http://security.ubuntu.com/ubuntu focal-security main" | sudo tee /etc/apt/sources.list.d/focal-security.list`
+
+`sudo apt-get update && sudo apt-get install libssl1.1`
+
+
+Then delete the focal-security list file you just created:
+
+`sudo rm /etc/apt/sources.list.d/focal-security.list`
+
+
+
 `apt install -y mongodb-org mongodb-org-database`
 
 `systemctl start mongod`
 
 `systemctl enable mongod`
+
 
 
 ### Install NodeJs
