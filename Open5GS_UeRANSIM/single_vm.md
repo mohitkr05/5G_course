@@ -71,10 +71,16 @@ Then delete the focal-security list file you just created:
 
 ## UERANSIM
 
-`sudo apt install make gcc g++ libsctp-dev lksctp-tools iproute2`
+`sudo apt install make gcc g++ libsctp-dev lksctp-tools iproute2 git`
 
 `sudo snap install cmake --classic`
 
+`git clone https://github.com/aligungr/UERANSIM`
+
+
+`cd ~/UERANSIM`
+
+`make`
 
 ## Notes
 
