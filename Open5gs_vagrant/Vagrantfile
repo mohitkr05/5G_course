@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
   
   config.vm.provision "shell", inline: <<-SHELL
      apt-get -y update
-     apt-get install -y gnupg wget tshark wireshark tcpdump 
+     apt-get install -y gnupg wget tcpdump 
      wget -q0 https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
      echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
      apt-get -y update
