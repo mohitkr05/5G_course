@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
         open5gs.vm.post_up_message = "This is the 5G server based on Open5GS for development, do not use in production"
             open5gs.vm.provider "virtualbox" do |vb|
             # Display the VirtualBox GUI when booting the machine
-            vb.gui = true
+            vb.gui = false
             # Customize the amount of memory on the VM:
             vb.memory = "1024"
             vb.cpus = 2
@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     ueransim.vm.synced_folder "shared_dirs/ueransim_data/" , "/home/vagrant/config"
     ueransim.vm.provider "virtualbox" do |vb|
       # Display the VirtualBox GUI when booting the machine
-      vb.gui = true
+      vb.gui = false
       # Customize the amount of memory on the VM:
       vb.memory = "1024"
       vb.cpus = 1
