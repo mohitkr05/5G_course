@@ -1,0 +1,20 @@
+[Unit]
+Description=Open5GS WebUI
+Wants=mongodb.service mongod.service
+
+[Service]
+Type=simple
+
+WorkingDirectory=/usr/lib/node_modules/open5gs
+Environment=NODE_ENV=production
+Environment=HOST=0.0.0.0
+Environment=PORT=3000
+
+ExecStart=/usr/bin/node server/index.js
+Restart=always
+RestartSec=2
+
+
+
+[Install]
+WantedBy=multi-user.target
