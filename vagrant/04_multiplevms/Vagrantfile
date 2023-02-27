@@ -1,0 +1,52 @@
+VAGRANT_API_VERSION = "2"
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+    config.vm.define "5ginabox" do |open5gs|
+        # First VM definition
+        open5gs.vm.box = "ubuntu/focal64"
+        open5gs.vm.hostname = "5ginabox.local" 
+        open5gs.vm.network "private_network", ip:"192.168.56.101" , hostname: true
+        open5gs.vm.network "forwarded_port", guest: 3000, host: 9000
+        open5gs.vm.network "forwarded_port", guest: 38412, host: 38412
+        
+         ## add this line before provisioning to avoid overriding
+        open5gs.vm.synced_folder "shared_dirs/open5gs_data/configs" , "/etc/open5gs/"
+        open5gs.vm.synced_folder "shared_dirs/open5gs_data/" , "/home/vagrant/data"
+      
+        ## add this line before provisioning to avoid overriding
+        open5gs.vm.post_up_message = "This is the 5G server based on Open5GS for development, do not use in production"
+            open5gs.vm.provider "virtualbox" do |vb|
+            # Display the VirtualBox GUI when booting the machine
+            vb.gui = false
+            # Customize the amount of memory on the VM:
+            vb.memory = "1024"
+            vb.cpus = 2
+        end
+        open5gs.vm.provision "shell", path:"installation/install_open5gs.sh"
+
+        
+
+
+  end
+
+  config.vm.define "ueransim" do |ueransim|
+    # Second VM definition 
+    ueransim.vm.box = "ubuntu/focal64"
+    ueransim.vm.hostname = "ueransim.local" 
+    ueransim.vm.post_up_message = "This is just for testing, do not use in production"
+    ## add this line before provisioning to avoid overriding
+    ueransim.vm.synced_folder "shared_dirs/ueransim_data/" , "/home/vagrant/config"
+    ueransim.vm.provider "virtualbox" do |vb|
+      # Display the VirtualBox GUI when booting the machine
+      vb.gui = false
+      # Customize the amount of memory on the VM:
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+    ueransim.vm.provision "shell", path:"installation/install_ueransim.sh"
+    ueransim.vm.network "private_network", ip:"192.168.56.102"
+    
+  end
+
+
+ 
+end
