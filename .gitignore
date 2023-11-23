@@ -1,4 +1,8 @@
 .vagrant/
+packer/open5gs/packer_cache/*
+*.iso
+*.lock
+vagrant/06_srsran/open5gs_config/*
 ueransim_vagrant/data/*
 Open5gs_vagrant/open5gs_config/*
 # Log files (if you are creating logs in debug mode, uncomment this)

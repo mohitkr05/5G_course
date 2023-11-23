@@ -1,0 +1,50 @@
+VAGRANT_API_VERSION = "2"
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+  config.vm.box = "ubuntu/focal64"
+  config.vm.hostname = "5GCvm"
+  config.vm.network "private_network", ip:"192.168.56.101" 
+  config.vm.synced_folder "open5gs_config" , "/etc/open5gs/"
+  config.vm.synced_folder "data" , "/home/vagrant/data"
+  config.vm.network "forwarded_port", guest: 3000, host: 8080
+
+
+  config.vm.provider "virtualbox" do |vb|
+    # Display the VirtualBox GUI when booting the machine
+    vb.gui = true
+    vb.cpus = 2
+    vb.memory = "2048"
+  end
+  
+  config.vm.provision "shell", inline: <<-SHELL
+     NODE_MAJOR=20
+     apt-get -y update
+     apt-get install -y gnupg wget tcpdump curl
+     curl -fsSL https://pgp.mongodb.com/server-7.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+     sudo apt-key add /usr/share/keyrings/mongodb-server-7.0.gpg
+     echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+     apt-get -y update
+     apt install -y mongodb-org
+     sudo systemctl start mongod
+     sudo systemctl enable mongod
+     add-apt-repository ppa:open5gs/latest
+     apt-get install -y software-properties-common
+     apt-get -y update
+     apt install -y open5gs
+     #sudo apt install libc6=2.31-0ubuntu9.2 libc-bin=2.31-0ubuntu9.2 - To be used if getting error for nodejs
+
+     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o  /usr/share/keyrings/nodesource.gpg
+     echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+     sudo apt-get -y update 
+     sudo apt-get -y install nodejs
+     sudo curl -fsSL https://open5gs.org/open5gs/assets/webui/install | sudo -E bash -
+     sudo cp /home/vagrant/data/open5gs_webui.service /lib/systemd/system/open5gs-webui.service
+     sudo systemctl daemon-reload
+     sudo systemctl restart open5gs-webui
+     
+
+
+
+  SHELL
+
+
+end
