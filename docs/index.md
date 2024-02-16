@@ -1,17 +1,18 @@
-# Welcome to MkDocs
+# 5G Course
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
-## Commands
+## How to use this repository?
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+This repository contains the source files for the documentation generated using MkDocs. The best way is to clone this repository or you can read through this online.
 
-## Project layout
+## Getting Started
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+To get started, follow these steps:
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/yourusername/your-repo.git
+   cd your-repo
+
+   ```
+2. 
