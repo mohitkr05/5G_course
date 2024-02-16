@@ -7,4 +7,4 @@ ueransim_vagrant/data/*
 Open5gs_vagrant/open5gs_config/*
 # Log files (if you are creating logs in debug mode, uncomment this)
 *.log
-myenv/
+myenv/*
