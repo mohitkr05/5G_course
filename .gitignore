@@ -1,3 +1,8 @@
+myenv/include/*
+myenv/bin/*
+myenv/lib/*
+myenv/lib64/*
+myenv/pyvenv.cfg
 .vagrant/
 packer/open5gs/packer_cache/*
 *.iso
@@ -7,4 +12,3 @@ ueransim_vagrant/data/*
 Open5gs_vagrant/open5gs_config/*
 # Log files (if you are creating logs in debug mode, uncomment this)
 *.log
-myenv/*
