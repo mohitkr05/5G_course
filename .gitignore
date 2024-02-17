@@ -1,4 +1,4 @@
-myenv/*
+myenv/
 .vagrant/
 open5gs/packer/open5gs/packer_cache/*
 *.iso
