@@ -1,0 +1,32 @@
+site_name: 5G Course
+
+# mkdocs.yml
+
+# Project Information
+site_description: A brief description of my documentation project
+site_author: Your Name
+repo_url: https://github.com/yourusername/your-repo
+
+theme: lumen
+
+
+# # Plugins Configuration (optional)
+# plugins:
+#   - search
+#   - toc:
+#       permalink: true
+
+# Navigation Configuration
+nav:
+  - Home: 'index.md'
+  - Guides:
+      - 'Installation': 'guides/installation.md'
+      - 'Getting Started': 'guides/getting-started.md'
+  - API Reference:
+      - 'Module A': 'api/module-a.md'
+      - 'Module B': 'api/module-b.md'
+
+extra:
+  author_twitter: '@mohitkr.au'
+  custom_css: 'custom.css'
+  custom_js: 'custom.js'

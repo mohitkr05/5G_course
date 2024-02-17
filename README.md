@@ -1,12 +1,6 @@
-# 5G Stuff
+# 5G Course
 
-Supporting documentation and course content for the course on 5G
-
-
-Access the course here - https://www.youtube.com/watch?v=8Y9_IsC9R28&list=PLZqpS76PykwIoqMdUt6noAor7eJw83bbp
-
-<div style="width:100%;height:0;padding-bottom:92%;position:relative;"><iframe src="https://giphy.com/embed/tXLpxypfSXvUc" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/space-astronomy-tXLpxypfSXvUc">via GIPHY</a></p>
-
+The documentation for the 5G Course. Access the course [here](https://www.youtube.com/watch?v=8Y9_IsC9R28&list=PLZqpS76PykwIoqMdUt6noAor7eJw83bbp)
 
 ## Course content
 
