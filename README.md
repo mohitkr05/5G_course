@@ -4,11 +4,13 @@ The documentation for the 5G Course. Access the course [here](https://www.youtub
 
 ## Course content
 
-### ClickOps
 
-1. Setting up Open5GS & UERANSIM 
 
-### Using Vagrant
-2. Setting up Open5gs using vagrant
-3. Setting up UERANSIM with vagrant
-4. Setting up both Open5gs and UERANSIM with vagrant
+## Scenarios to test out
+
+### 4G Scenarios 
+
+1. 4G Core (Open5GS) with SRS RAN
+
+
+### 5G Scenarios
