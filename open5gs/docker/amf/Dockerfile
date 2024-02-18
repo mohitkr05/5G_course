@@ -1,44 +1,54 @@
-# Use a base image with a minimal OS and install necessary dependencies
-FROM ubuntu:20.04 as builder
+# Build AMF
+ARG BASE_IMAGE_VERSION=22.04
+ARG TZ=Australia/Melbourne
+ARG NFV=amf
+FROM ubuntu:${BASE_IMAGE_VERSION} AS builder
+MAINTAINER Mohit Kumar <mohitkr05@gmail.com>
+ENV DEBIAN_FRONTEND=noninteractive
 
-LABEL maintainer="Mohit Kumar <hello@mohitkr.com>"
 
-# Set a default function if not provided
-ENV RUN_FUNCTION=amfd  
+# Create the directories where the git repo will be cloned
+
+RUN mkdir -p /etc/apt/keyrings && mkdir -p /etc/open5gs && mkdir -p /var/log/open5gs
+RUN apt-get -y update && apt-get -y install tzdata  && ln -fs /usr/share/zoneinfo/{$TZ} /etc/localtime && \ 
+    dpkg-reconfigure --frontend noninteractive tzdata
+RUN apt-get install -y software-properties-common gnupg wget build-essential tcpdump python3-pip python3-setuptools \ 
+                        python3-wheel ninja-build build-essential flex bison git cmake libsctp-dev libgnutls28-dev \ 
+                        libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev \ 
+                        libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev libtalloc-dev meson
 
 
-# Install required packages
+RUN cd /etc/open5gs && git clone --recursive https://github.com/open5gs/open5gs.git
+
+#https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
+
+RUN cd /etc/open5gs/open5gs && meson build --prefix=`pwd`/install && \
+    ninja -C build && cd build && ninja install
+
+
+
+# App image
+
+FROM ubuntu:${BASE_IMAGE_VERSION}
+ENV TZ=Australia/Melbourne
+ARG NFV=amf
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y \
-    git build-essential cmake libmnl-dev libidn11 libidn11-dev libyaml-dev \
-    libssl-dev libcurl4-openssl-dev libmicrohttpd-dev python3 python3-pip
+        curl \
+        iproute2 \
+        iputils-ping \
+        net-tools \
+        iptables \
+        software-properties-common gnupg wget build-essential tcpdump python3-pip python3-setuptools \ 
+                        python3-wheel ninja-build build-essential flex bison git cmake libsctp-dev libgnutls28-dev \ 
+                        libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev \ 
+                        libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev libtalloc-dev meson
+        
+ENV APP_ROOT=/etc/open5gs
 
-# Clone Open5GS repository
-RUN git clone https://github.com/open5gs/open5gs.git /open5gs
+COPY --from=builder /etc/open5gs ${APP_ROOT}
+COPY ${NFV}.yaml /etc/open5gs/open5gs/install/etc/open5gs/${NFV}.yaml
+WORKDIR ${APP_ROOT}
 
-# Build and install Open5GS
-WORKDIR /open5gs
-RUN mkdir build && \
-    cd build && \
-    cmake ../ && \
-    make && \
-    make install
-
-# Clean up unnecessary packages and files
-RUN apt-get remove -y --purge git build-essential cmake libmnl-dev libidn11-dev \
-    libyaml-dev libssl-dev libcurl4-openssl-dev libmicrohttpd-dev && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /open5gs
-
-# Expose ports used by Open5GS
-EXPOSE 80 443 3000 8805
-
-# Run the specific function based on the environment variable
-CMD ["sh", "-c", "if [ \"$RUN_FUNCTION\" = \"custom_function\" ]; then custom_function; else default_function; fi"]
-
-# Default function
-RUN echo "Running default function"
-
-# Custom function (replace this with your actual function)
-RUN custom_function() { echo "Running custom function"; }
+CMD ["/etc/open5gs/open5gs/install/bin/open5gs-amfd"]
