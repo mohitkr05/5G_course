@@ -8,3 +8,4 @@ open5gs/ueransim_vagrant/data/*
 open5gs/Open5gs_vagrant/open5gs_config/*
 # Log files (if you are creating logs in debug mode, uncomment this)
 *.log
+packer/
