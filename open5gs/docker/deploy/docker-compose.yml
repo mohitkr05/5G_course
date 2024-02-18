@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  webui:
+    image: open5gs-webui:latest
+    container_name: open5gs-webui-mongodb
+  
+  amf:
+    image: open5gs-amf:latest
+    container_name: open5gs-amf
+
+  hss:
+    image: ghcr.io/your-username/your-repo:hss
+    container_name: open5gs-hss
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URI=mongodb://mongodb/open5gs
+    ports:
+      - "3868:3868"
+      - "5868:5868"
+      - "5869:5869"
+
+  mme:
+    image: ghcr.io/your-username/your-repo:mme
+    container_name: open5gs-mme
+    depends_on:
+      - hss
+    ports:
+      - "2123:2123"
+      - "2122:2122"
+
+  sgw:
+    image: ghcr.io/your-username/your-repo:sgw
+    container_name: open5gs-sgw
+    depends_on:
+      - mme
+    ports:
+      - "2152:2152"
+      - "8805:8805"
+
+  pgw:
+    image: ghcr.io/your-username/your-repo:pgw
+    container_name: open5gs-pgw
+    depends_on:
+      - sgw
+    ports:
+      - "8806:8806"

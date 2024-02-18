@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# This script will configure following docker containers 
+# to set up a fully functional 5G Core.
+# The script takes the input in form of the following variables
+# plmn= mcc, mnc

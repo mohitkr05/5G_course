@@ -26,29 +26,4 @@ RUN cd /etc/open5gs/open5gs && meson build --prefix=`pwd`/install && \
     ninja -C build && cd build && ninja install
 
 
-
-# App image
-
-FROM ubuntu:${BASE_IMAGE_VERSION}
-ENV TZ=Australia/Melbourne
-ARG NFV=amf
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \
-    apt-get install -y \
-        curl \
-        iproute2 \
-        iputils-ping \
-        net-tools \
-        iptables \
-        software-properties-common gnupg wget build-essential tcpdump python3-pip python3-setuptools \ 
-                        python3-wheel ninja-build build-essential flex bison git cmake libsctp-dev libgnutls28-dev \ 
-                        libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev \ 
-                        libmicrohttpd-dev libcurl4-gnutls-dev libnghttp2-dev libtins-dev libtalloc-dev meson
-        
-ENV APP_ROOT=/etc/open5gs
-
-COPY --from=builder /etc/open5gs ${APP_ROOT}
-COPY ${NFV}.yaml /etc/open5gs/open5gs/install/etc/open5gs/${NFV}.yaml
-WORKDIR ${APP_ROOT}
-
-CMD ["/etc/open5gs/open5gs/install/bin/open5gs-amfd"]
+CMD ["echo", "base image build complete"]
