@@ -94,8 +94,3 @@ This is just a small sample of the many breakthroughs in telecommunications engi
 | To provide extremely high data rates, low latency, and massive connectivity for mobile devices and the Internet of Things (IoT), enabling new applications such as self-driving cars, augmented reality, and virtual reality | 2019 | 5G | Fifth-generation cellular networks | [Wikipedia article on 5G](https://en.wikipedia.org/wiki/5G) |
 | To further improve the performance and capabilities of 5G, enabling new applications such as 6G-enabled smart cities and factories | 2030 (planned) | 6G | Sixth-generation cellular networks | [Wikipedia article on 6G](https://en.wikipedia.org/wiki/6G) |
 
-
-
-## Question
-
-What are some standards that help in adoption of the technologies across world?

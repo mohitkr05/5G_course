@@ -19,6 +19,8 @@ theme: lumen
 # Navigation Configuration
 nav:
   - Home: 'index.md'
+  - Documentation:
+     - 'Introduction to Telecom': 'introduction/01-Introduction-to-Telecom.md'
   - Guides:
       - 'Installation': 'guides/installation.md'
       - 'Getting Started': 'guides/getting-started.md'
