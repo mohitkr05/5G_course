@@ -9,7 +9,7 @@ mkdocs-bootswatch==1.1
 mkdocs-simple-blog==0.0.10
 packaging==24.2
 pathspec==0.12.1
-platformdirs==4.2.2
+platformdirs==4.3.6
 python-dateutil==2.9.0.post0
 PyYAML==6.0.1
 pyyaml_env_tag==0.1
