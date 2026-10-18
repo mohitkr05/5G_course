@@ -1,16 +1,7 @@
-# 5G Course
+# This repository has moved
 
-The documentation for the 5G Course. Access the course [here](https://www.youtube.com/watch?v=8Y9_IsC9R28&list=PLZqpS76PykwIoqMdUt6noAor7eJw83bbp)
+This repo has been archived and its content consolidated into:
 
-## Course content
+**[mohitkr05/telco-tech-bootcamps](https://github.com/mohitkr05/telco-tech-bootcamps)**
 
-
-
-## Scenarios to test out
-
-### 4G Scenarios 
-
-1. 4G Core (Open5GS) with SRS RAN
-
-
-### 5G Scenarios
+Please update any bookmarks or links accordingly.
